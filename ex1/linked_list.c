@@ -4,7 +4,7 @@
 
 list_t list_create()
 {
-
+	
 }
 
 void list_delete(list_t list)

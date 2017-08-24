@@ -1,5 +1,5 @@
 #program executable name
-TARGET = epicness
+TARGET = list_test
 
 #compiler flags
 CFLAGS = -g -Wall
