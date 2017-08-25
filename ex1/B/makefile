@@ -2,13 +2,13 @@
 TARGET = list_test
 
 #compiler flags
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -std=c99
 
 #linker flags
 LDFLAGS = -g
 
 #list of sources
-SOURCES = $(shell find -name "*.c")
+SOURCES =$(filter-out A, $(shell find -name "*.c"))
 
 #default rule, to compile everything
 all: $(TARGET)
