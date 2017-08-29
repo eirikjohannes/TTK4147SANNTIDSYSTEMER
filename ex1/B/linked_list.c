@@ -21,7 +21,7 @@ list_t list_create()
 
 void list_delete(list_t list)
 {
-	for(int i=list->length;i<=0;i--){
+	for(int i=list->length-1;i==0;i--){
 		list_extract(list,i);
 	}
 	free(list);
