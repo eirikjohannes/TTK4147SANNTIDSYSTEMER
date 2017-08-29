@@ -3,8 +3,8 @@
 
 void allocate(int value){
 	int *ptr=NULL;
-	ptr=malloc(1024*1024*sizeof(char));
-	if(!ptr){
+	ptr=malloc(1024*1024*1024*sizeof(char));
+	if(ptr==NULL){
 		//Error occured
 		perror("Malloc failed to allocate more memory, exiting..\n");
 		exit(1);

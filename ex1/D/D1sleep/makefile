@@ -2,10 +2,10 @@
 TARGET = timechecks
 
 #compiler flags
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -pthread
 
 #linker flags
-LDFLAGS = -g -lrt
+LDFLAGS = -g -lrt -pthread
 
 #list of sources
 SOURCES = $(shell find -name "*.c")
