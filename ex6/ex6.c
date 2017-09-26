@@ -19,7 +19,7 @@
 #define wait_ms 1000000
 #define wait_us 1000
 
-#define delayTime 500*wait_ms
+#define delayTime 1*wait_us
 
 int set_cpu(int cpu_number)
 {
@@ -80,15 +80,15 @@ void* stupidTest(void *arg){
 
 
 void periodicPrint(){
-	rt_task_set_periodic(NULL, TM_NOW, 100000000);
+	rt_task_set_periodic(NULL, TM_NOW, 500*wait_ms);
 	while(1){
-		printf("Hello");
+		printf("Hello\n");
 		rt_task_wait_period(NULL);
 	}
 }
 
 int main(int argc, char **argv){
-	int disturbance=0;
+	int disturbance=1;
 	io_init();
 	printf("Initiated io\n");
 	mlockall(MCL_CURRENT|MCL_FUTURE);
@@ -97,7 +97,12 @@ int main(int argc, char **argv){
 	RT_TASK taskc;
 	
 	rt_task_create(&task1,"Response A",0,99,T_CPU(1));//|T_JOINABLE);
-	rt_task_start(&task1,&periodicPrint,NULL);
+	rt_task_create(&taskb,"Response B",0,99,T_CPU(1));//|T_JOINABLE);
+	rt_task_create(&taskc,"Response C",0,99,T_CPU(1));//|T_JOINABLE);
+
+	rt_task_start(&task1,&xenTaskA,NULL);
+	rt_task_start(&taskb,&xenTaskB,NULL);
+	rt_task_start(&taskc,&xenTaskC,NULL);
 	
 	
 	
@@ -111,7 +116,7 @@ int main(int argc, char **argv){
 			pthread_join((pidARR[j]),NULL);
 		}
 	}
-	printf("Hello from main\n");
+
 	
 	while(1);
 	
