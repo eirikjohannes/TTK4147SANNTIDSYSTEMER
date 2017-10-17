@@ -60,7 +60,6 @@ int main(){
 
 	pthread_join(pid_thread,NULL);
 	TOTAL_RUNNING_THREADS=0;
-	sendToServer("STOP");
 	udp_close(&udp_connection);
 	printf("CLosing down\n");
 
@@ -106,17 +105,16 @@ void sendToServer(char * data){
 
 void* pidCtrl(void * r){ //thread
 	struct timespec period, endtime;
-	const double PERIOD= 0.0023; //Must match period [timespec)]
+	const double PERIOD= 0.001; //Must match period [timespec)]
 	const double PERIOD_time =1/PERIOD;
 	char pid_Ctrl_buf[50];
 	double error, integral, u, length;
 	const double reference=1.0; //for step response?
-	clock_gettime(CLOCK_REALTIME,&period);
-	clock_gettime(CLOCK_REALTIME,&endtime);
+
 	sendToServer("START");
 
 	timespec_add_us(&endtime,500*1000);
-	while(timercmp(&endtime,&period, >)==1){
+	while(1){
 		sendToServer("GET");
 		sem_wait(&udp_received_y);
 
@@ -132,5 +130,4 @@ void* pidCtrl(void * r){ //thread
 	}
 	return r;
 }
-
 
