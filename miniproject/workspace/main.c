@@ -55,7 +55,7 @@ int main(){
 
 	pthread_create(&udp_thread,NULL,udp,NULL);
 	pthread_create(&pid_thread,NULL,pidCtrl,NULL);
-	pthread_create(&reply_thread,NULL,serverResponse,NULL);
+	//pthread_create(&reply_thread,NULL,serverResponse,NULL);
 
 
 	pthread_join(pid_thread,NULL);
@@ -106,7 +106,7 @@ void sendToServer(char * data){
 
 void* pidCtrl(void * r){ //thread
 	struct timespec period, endtime;
-	const double PERIOD= 0.0036; //Must match period [timespec)]
+	const double PERIOD= 0.0023; //Must match period [timespec)]
 	const double PERIOD_time =1/PERIOD;
 	char pid_Ctrl_buf[50];
 	double error, integral, u, length;
