@@ -39,8 +39,8 @@ double Kp=10;
 double Ki=800;
 int main(){
 	printf("Hello\n");
-	
-	
+
+
 	if(udp_init_client(&udp_connection,9999,"192.168.0.1")==1){
 		printf("Error during UDP_init\n");
 		return 1;
@@ -106,7 +106,7 @@ void sendToServer(char * data){
 
 void* pidCtrl(void * r){ //thread
 	struct timespec period, endtime;
-	const double PERIOD= 0.0023; //Must match period [timespec)]
+	const double PERIOD= 0.001; //Must match period [timespec)]
 	const double PERIOD_time =1/PERIOD;
 	char pid_Ctrl_buf[50];
 	double error, integral, u, length;
@@ -132,5 +132,3 @@ void* pidCtrl(void * r){ //thread
 	}
 	return r;
 }
-
-

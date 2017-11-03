@@ -688,7 +688,7 @@ deps_config := \
 	target/Config.in.arch \
 	Config.in
 
-/home/student/Desktop/grupp1/TTK4147SANNTIDSYSTEMER/ex8/buildroot-avr32-v3.0.0_TTK4147/output/build/buildroot-config/auto.conf: \
+/home/student/Desktop/TTK4147SANNTIDSYSTEMER/ex8/buildroot-avr32-v3.0.0_TTK4147/output/build/buildroot-config/auto.conf: \
 	$(deps_config)
 
 

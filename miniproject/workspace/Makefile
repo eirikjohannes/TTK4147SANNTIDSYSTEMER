@@ -16,11 +16,11 @@ all: $(TARGET)
 OBJECTS = $(SOURCES:.c=.o)
 #link programs 
 $(TARGET):$(OBJECTS)
-	/home/student/Desktop/grupp1/TTK4147SANNTIDSYSTEMER/ex8/buildroot-avr32-v3.0.0_TTK4147/output/staging/usr/bin/avr32-linux-gcc  -o $@ $^ $(LDFLAGS) 
+	/home/student/Desktop/Gruppe9/buildr00t/output/staging/usr/bin/avr32-linux-gcc  -o $@ $^ $(LDFLAGS) 
 
 #compile 
 %.o : %.c
-	/home/student/Desktop/grupp1/TTK4147SANNTIDSYSTEMER/ex8/buildroot-avr32-v3.0.0_TTK4147/output/staging/usr/bin/avr32-linux-gcc $(CFLAGS) -c -o $@ $<
+	/home/student/Desktop/Gruppe9/buildr00t/output/staging/usr/bin/avr32-linux-gcc $(CFLAGS) -c -o $@ $<
 
 #cleaning
 clean:
