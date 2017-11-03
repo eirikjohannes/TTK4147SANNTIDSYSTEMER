@@ -39,8 +39,8 @@ double Kp=10;
 double Ki=800;
 int main(){
 	printf("Hello\n");
-	
-	
+
+
 	if(udp_init_client(&udp_connection,9999,"192.168.0.1")==1){
 		printf("Error during UDP_init\n");
 		return 1;
@@ -60,6 +60,7 @@ int main(){
 
 	pthread_join(pid_thread,NULL);
 	TOTAL_RUNNING_THREADS=0;
+	sendToServer("STOP");
 	udp_close(&udp_connection);
 	printf("CLosing down\n");
 
@@ -105,16 +106,17 @@ void sendToServer(char * data){
 
 void* pidCtrl(void * r){ //thread
 	struct timespec period, endtime;
-	const double PERIOD= 0.001; //Must match period [timespec)]
+	const double PERIOD= 0.0037; //Must match period [timespec)]
 	const double PERIOD_time =1/PERIOD;
 	char pid_Ctrl_buf[50];
 	double error, integral, u, length;
 	const double reference=1.0; //for step response?
-
+	clock_gettime(CLOCK_REALTIME,&period);
+	clock_gettime(CLOCK_REALTIME,&endtime);
 	sendToServer("START");
 
 	timespec_add_us(&endtime,500*1000);
-	while(1){
+	while(timercmp(&endtime,&period, >)==1){
 		sendToServer("GET");
 		sem_wait(&udp_received_y);
 
@@ -124,10 +126,9 @@ void* pidCtrl(void * r){ //thread
 
 		sprintf(pid_Ctrl_buf,"SET:%f",u);
 		sendToServer(pid_Ctrl_buf);
-		timespec_add_us(&period,PERIOD_time);
+		timespec_add_us(&period,PERIOD*1000000);
 		new_clock_nanosleep(&period);
 
 	}
 	return r;
 }
-

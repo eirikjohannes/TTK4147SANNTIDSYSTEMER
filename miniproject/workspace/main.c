@@ -106,7 +106,7 @@ void sendToServer(char * data){
 
 void* pidCtrl(void * r){ //thread
 	struct timespec period, endtime;
-	const double PERIOD= 0.001; //Must match period [timespec)]
+	const double PERIOD= 0.0036; //Must match period [timespec)]
 	const double PERIOD_time =1/PERIOD;
 	char pid_Ctrl_buf[50];
 	double error, integral, u, length;
@@ -126,7 +126,7 @@ void* pidCtrl(void * r){ //thread
 
 		sprintf(pid_Ctrl_buf,"SET:%f",u);
 		sendToServer(pid_Ctrl_buf);
-		timespec_add_us(&period,PERIOD_time);
+		timespec_add_us(&period,PERIOD*1000000);
 		new_clock_nanosleep(&period);
 
 	}
