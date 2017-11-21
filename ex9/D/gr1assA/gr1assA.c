@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
 	pthread_mutex_init(&ptr->pid_mutex,&myattr);
 
 	/*SERVER*/
-	//int channelID=ChannelCreate(0);
-	int channelID=ChannelCreate(_NTO_CHF_FIXED_PRIORITY);
+	int channelID=ChannelCreate(0);
+	//int channelID=ChannelCreate(_NTO_CHF_FIXED_PRIORITY);
 
 
 
